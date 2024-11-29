@@ -5,7 +5,7 @@ class Figure:
     sides_count = 0
 
     def __init__(self, color, *sides):
-        self._sides = [1] * self.sides_count
+        self.__sides = [1] * self.sides_count
         self.__color = [0, 0, 0]
         self.filled = False
 
@@ -27,14 +27,14 @@ class Figure:
                 and len(new_sides) == self.sides_count)
 
     def get_sides(self):
-        return list(self._sides)
+        return list(self.__sides)
 
     def __len__(self):
-        return sum(self._sides)
+        return sum(self.__sides)
 
     def set_sides(self, *new_sides):
         if self.__is_valid_sides(*new_sides):
-            self._sides = list(new_sides)
+            self.__sides = list(new_sides)
 
 
 class Circle(Figure):
@@ -58,7 +58,7 @@ class Triangle(Figure):
         super().__init__(color, *sides)
 
     def get_square(self):
-        a, b, c = self._sides
+        a, b, c = self.get_sides()
         pp = (a + b + c) / 2
         return math.sqrt(pp * (pp - a) * (pp - b) * (pp - c))
 
@@ -66,16 +66,12 @@ class Triangle(Figure):
 class Cube(Figure):
     sides_count = 12
 
-    def __init__(self, color, side):
-        super().__init__(color, *([1] * 12))
-        self.set_sides(side)
-
     def set_sides(self, *new_sides):
         if len(new_sides) == 1:
             super().set_sides(*(new_sides * self.sides_count))
 
     def get_volume(self):
-        return self._sides[0] ** 3
+        return self.get_sides()[0] ** 3
 
 
 circle1 = Circle((200, 200, 100), 10)
@@ -90,6 +86,8 @@ print(cube1.get_color())
 
 # Проверка на изменение сторон:
 cube1.set_sides(5, 3, 12, 4, 5)  # Не изменится
+print(cube1.get_sides())
+cube1.set_sides(5)  # Изменится
 print(cube1.get_sides())
 
 circle1.set_sides(15)  # Изменится
