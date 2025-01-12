@@ -40,3 +40,8 @@ class TournamentTest(unittest.TestCase):
         tournament = Tournament(90, self.usain, self.andrey, self.nik)
         TournamentTest.all_results.append(tournament.start())
         self.assertTrue(self.all_results[-1] == {1: "Усэйн", 2: "Андрей", 3: "Ник"})
+
+    def test4(self):
+        tournament = Tournament(10, self.andrey, self.usain)
+        TournamentTest.all_results.append(tournament.start())
+        self.assertTrue(self.all_results[-1] == {1: "Усэйн", 2: "Андрей"})
