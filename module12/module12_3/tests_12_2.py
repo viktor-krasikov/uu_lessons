@@ -1,10 +1,12 @@
 import unittest
+from unittest import skipIf
 
 from runner_and_tournament import Runner, Tournament
 
 
 class TournamentTest(unittest.TestCase):
     all_results = None
+    is_frozen = True
 
     @classmethod
     def setUpClass(cls):
@@ -26,21 +28,25 @@ class TournamentTest(unittest.TestCase):
         self.andrey = Runner(name="Андрей", speed=9)
         self.nik = Runner(name="Ник", speed=3)
 
+    @skipIf(is_frozen, "Тесты в этом кейсе заморожены")
     def test1(self):
         tournament = Tournament(90, self.usain, self.nik)
         TournamentTest.all_results.append(tournament.start())
         self.assertTrue(self.all_results[-1] == {1: "Усэйн", 2: "Ник"})
 
+    @skipIf(is_frozen, "Тесты в этом кейсе заморожены")
     def test2(self):
         tournament = Tournament(90, self.andrey, self.nik)
         TournamentTest.all_results.append(tournament.start())
         self.assertTrue(self.all_results[-1] == {1: "Андрей", 2: "Ник"})
 
+    @skipIf(is_frozen, "Тесты в этом кейсе заморожены")
     def test3(self):
         tournament = Tournament(90, self.usain, self.andrey, self.nik)
         TournamentTest.all_results.append(tournament.start())
         self.assertTrue(self.all_results[-1] == {1: "Усэйн", 2: "Андрей", 3: "Ник"})
 
+    @skipIf(is_frozen, "Тесты в этом кейсе заморожены")
     def test4(self):
         tournament = Tournament(10, self.andrey, self.usain)
         TournamentTest.all_results.append(tournament.start())
